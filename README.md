@@ -21,3 +21,6 @@ It can be installed as follows:
 ```
 ] add https://github.com/AlgebraicGeometricModeling/GSplines.jl
 ```
+
+[![](https://img.shields.io/badge/docs-blue.svg)](https://AlgebraicGeometricModeling.github.io/GSplines.jl/)
+[![](https://img.shields.io/badge/source-orange)](https://github.com/AlgebraicGeometricModeling/GSplines.jl)
