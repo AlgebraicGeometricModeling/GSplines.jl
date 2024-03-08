@@ -20,11 +20,11 @@ makedocs(
         "Using G+Smo" => "gismo.md",
         "About the package"  => "package.md",
     ],
-    repo = "https://github.com/AlgebraicGeometricModeling/GSplines.jl",
+    repo = Remotes.GitHub("AlgebraicGeometricModeling", "GSplines.jl"),
     doctest = false
 )
 
-deploydocs(
-    repo = "github.com/AlgebraicGeometricModeling/GSplines.jl.git",
-    target = "site"
-)
+#deploydocs(
+#    repo = "github.com/AlgebraicGeometricModeling/GSplines.jl.git",
+#    target = "site"
+#)
