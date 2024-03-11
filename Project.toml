@@ -13,4 +13,5 @@ ToeplitzMatrices = "c751599d-da0a-543b-9d20-d0a503d91d24"
 Axl = "7a5562b3-6b94-44f9-baf5-01dfb3dd6397"
 
 [compat]
+Axl = "0.1"
 julia = "1"
