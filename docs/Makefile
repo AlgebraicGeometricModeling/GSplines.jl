@@ -8,7 +8,7 @@ MD := $(patsubst %.ipynb,%.md,$(wildcard md/expl/*.ipynb))
 #	[ ! -f $*.md ] || mv $*.md ./md/expl/
 #	[ ! -d $*_files ] || cp -rf $*_files ./md/expl/ && rm -rf $*_files
 
-all: $(MD) 
+all: GSplines.jl $(MD) 
 	julia --color=yes make.jl
 
 GSplines.jl:

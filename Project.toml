@@ -1,0 +1,16 @@
+name = "GSplines"
+uuid = "d373ca5f-d779-4276-a0f9-dda5e9fd90b9"
+authors = ["Bernard Mourrain <bernard.mourrain@inria.fr>"]
+version = "0.1.0"
+
+[deps]
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+SemiAlgebraicTypes = "94bd45ad-7a68-435f-8a71-8b2caa00d1b6"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+ToeplitzMatrices = "c751599d-da0a-543b-9d20-d0a503d91d24"
+Axl = "7a5562b3-6b94-44f9-baf5-01dfb3dd6397"
+
+[compat]
+julia = "1"
