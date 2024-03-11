@@ -11,7 +11,7 @@ end
 
 export axldata
 """
-Read the off data in the 'file' of the data repository.
+Read the axl data in the 'file' of the data repository.
 ```
 m = axldata("y1m1.axl")
 ```
