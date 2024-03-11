@@ -7,7 +7,7 @@ Here is an example of construction of a G1 surface, visualized with 'Axl':
 ```
 using GSplines, SemiAlgebraicTypes, Axl
 
-m = axldata("y1m1.axl")[1]  #read mesh from data file "y1m1.axl"
+m = axldata("y1m1.axl")[1]  # read mesh from data file "y1m1.axl"
 m[:color] = Axl.red
 @axlview m
 ```
@@ -15,7 +15,7 @@ m[:color] = Axl.red
 ![y1m1](y1m1.png)
 
 ```
-s = g1surface(m)
+s = g1surface(m)            # compute a G$^1$ smooth surface from the mesh `m`. 
 @axlview s
 ```
 
@@ -24,7 +24,7 @@ s = g1surface(m)
 
 Here is another example with an off file.
 ```
-m1 = offdata("cube.off")
+m1 = offdata("cube.off")    # read mesh in off format from file "cube.off" 
 m1[:color]= Axl.blue
 @axlview m1
 ```
@@ -32,7 +32,7 @@ m1[:color]= Axl.blue
 ![m1cube](m1cube.png)
 
 ```
-s1 = g1surface(m1)
+s1 = g1surface(m1)          # compute a G$^1$ smooth surface from the mesh `m1`. 
 @axlview s1
 ```
 
