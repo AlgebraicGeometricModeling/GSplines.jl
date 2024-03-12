@@ -6,12 +6,16 @@ This function takes in input a quad mesh and returns a sparse matrix containing 
  - ncols of the sparse matrix gives the dimension of the spline space,
  - nrows is the total number of control points in the mesh i.e. nfaces*36
 """
-function g1basis(m::Mesh)
-#    gsurf=g1surface(m)
+
+function g1basis(m::HMesh)
     basis=g1basis_bezier(m);
     return basis
 end
 
 
+function g1basis(m::Mesh)
+    hm=hmesh(m)
+    g1basis(hm);
+end
 
 
