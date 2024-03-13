@@ -51,7 +51,7 @@ include("insert_knot.jl")
 include("g1basis_gluingdata.jl")
 include("g1basis_assemble_gluing.jl")
 
-include("fake_edges.jl")
+include("redefine_boundary_edges.jl")
 
 include("off_read.jl")
 include("gismo_write.jl")
