@@ -1,9 +1,10 @@
+export redefine_boundary_edges!
 """
 This function modifies the half edge data structure of a mesh re-defining some edges to be boundaries. 
     It is done giving in input a list of indices identifying the edges (in the half edge structure) to be set as boundaries.
 """
 function redefine_boundary_edges!(hm::HMesh, sharp_edges::Array)
-
+    
 list_edges=hm.edges;
 nb_edges=length(list_edges);
 nb_sh_edges=size(sharp_edges,1);
