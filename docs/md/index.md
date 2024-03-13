@@ -24,18 +24,18 @@ s = g1surface(m)            # compute a G1 smooth surface from the mesh m
 
 Here is another example with an off file.
 ```
-m1 = offdata("cube.off")    # read mesh in off format from file "cube.off" 
+m1 = offdata("cube.off")    # read mesh in off format from data file "cube.off" 
 m1[:color]= Axl.blue        # set its color to blue
 @axlview m1                 # view the mesh using Axl
 ```
 
-![m1cube](m1cube.png)
+![m1cube](cube_m1.png)
 
 ```
 s1 = g1surface(m1)          # compute a G1 smooth surface from the mesh m1 
 @axlview s1                 # view the G1 spline using Axl 
 ```
 
-![g1cube](g1cube.png)
+![g1cube](cube_g1.png)
 
 Notice that the mesh has been subdivided using one step of Catmull-Clark subdivision, so that no extraordinary vertices (of valence $\neq$ 4) are connected by an edge.
