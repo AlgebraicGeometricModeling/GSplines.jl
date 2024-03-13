@@ -27,9 +27,6 @@ include("g1constraint_matrix.jl")
 include("g0surface.jl")
 include("g1surface.jl")
 
-
-#include("g1basis_functions.jl")
-
 include("acc_3.jl")
 include("acc_d.jl")
 
@@ -41,11 +38,9 @@ include("mask_operations.jl")
 include("order_bezier_cp.jl")
 
 include("g1basis.jl")
-
 include("g1basis_bezier.jl")
 
 include("get_basis_from_sparse.jl")
-
 include("g1dimension.jl")
 
 include("eval.jl")
