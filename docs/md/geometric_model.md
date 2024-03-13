@@ -11,9 +11,5 @@ g0surface
 g1surface
 ```
 
-```@docs 
-GSplines.g1matrix
-GSplines.G1matrix
-GSplines.g1matrix_edge
-```
+
 

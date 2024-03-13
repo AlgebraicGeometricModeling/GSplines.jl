@@ -1,6 +1,4 @@
-#include("../src/G1Splines.jl")
-#include("../src/eval.jl")
-
+export g1dimension, g1matrix
 
 function Aglue(N1,N2,x)
     a = 2*cos(2*pi/N1)*(1-x)^2-2*cos(2*pi/N2)*x^2 #+ x^2
