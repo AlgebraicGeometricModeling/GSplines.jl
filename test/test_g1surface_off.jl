@@ -12,7 +12,7 @@ F = filter(x -> endswith(x, ".off") , readdir(dir))
 
 S=["CS-S","CS-AS","NCS-S","NCS-AS"]; #Solving strategies
 
-for f in F[2:end]
+for f in F[1:end]
     try
         local m = offread(joinpath(dir,f));
         m[:color] = Color(0,0,255);

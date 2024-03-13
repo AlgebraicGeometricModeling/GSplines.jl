@@ -6,7 +6,7 @@ using SemiAlgebraicTypes, GSplines
 
 dir = joinpath(G1S[:pkgdir],"data/off");
 
-F = filter(x -> endswith(x, ".off") , readdir(dir))
+F = filter(x -> startswith(x, "BEV_") && x -> endswith(x, ".off") , readdir(dir))
 
 #The input mesh must have EVs surrounded by just regular vertices; if this is not true, you must subdivide once (or more, for any reason).
 
