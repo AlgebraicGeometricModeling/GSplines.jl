@@ -38,9 +38,9 @@ function f2_idx(m,k,i,j)
 end
 
 
-"""
+#=
 Compute the matrix defining the edge spline basis, in a compressed form.
-"""
+=#
 function g1matrix_edge(kn::Array, N1::Int64, N2::Int64;
                        zeroOnEdge=false,
                        equalAcrossEdge=false,
@@ -258,11 +258,11 @@ function expand_spmatrix(K,I,m)
     return Ke
 end
 
-"""
+#=
  Compute the matrix defining the G1 splines on the mesh hm with the knot distribution kn using quadratic glueing data.
 
  It assumes that boundary vertices are regular.
-"""
+=#
 function g1matrix(hm, kn)
     m, d = dim_deg(kn)
 

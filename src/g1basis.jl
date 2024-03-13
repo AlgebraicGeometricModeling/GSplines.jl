@@ -1,5 +1,4 @@
 export g1basis
-
 """
 This function takes in input a quad mesh and returns a sparse matrix containing the coefficients defining a set of G1 biquintic basis functions on the input mesh.
 

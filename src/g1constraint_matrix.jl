@@ -1,4 +1,4 @@
-"""
+#=
 This function creates the smoothing matrix to create a G1 smooth patch around extraordinary vertices of any valence
  - N--> Valence of the EV
  - S--> Solving strategy NCS-S (non circulant system+symm), NCS-AS(non circulant system+asymm), CS-AS(circulant system+asymm), CS-S(circulant system+symm)
@@ -17,7 +17,7 @@ The output matrix B has smoothing masks ordered as follow
     1  2  3  | 16 13 10
 ```
  For regular vertices N=4 it will return ACC3 smoothing masks
-"""
+=#
 function G1matrix(N::Int, S::String="CS-S", T::String="INNER")
 
 
