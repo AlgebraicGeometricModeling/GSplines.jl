@@ -15,7 +15,7 @@ GSplines.jl:
 	git clone -b gh-pages https://github.com/AlgebraicGeometricModeling/GSplines.jl.git
 
 publish:
-	cd GSplines.jl; git add docs; git commit -am "update gh-pages"; git push
+	cd .\GSplines.jl\; git add docs; git commit -am "update gh-pages"; git push
 
 clean:
 	rm ./md/expl/*.md
