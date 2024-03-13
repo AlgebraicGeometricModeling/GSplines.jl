@@ -15,6 +15,5 @@ g1surface
 GSplines.g1matrix
 GSplines.G1matrix
 GSplines.g1matrix_edge
-GSplines.fake_edges
 ```
 
