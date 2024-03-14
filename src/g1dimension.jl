@@ -1,6 +1,4 @@
 export g1dimension, g1hom_matrix
-
-
 """
     g1dimension(m::{HMesh, Mesh})
 
