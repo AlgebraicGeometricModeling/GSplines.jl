@@ -3,6 +3,10 @@
 Pages = ["converters.md"]
 ```
 
+```@docs
+set_boundary!
+```
+
 ```@docs 
 bspline
 ```

@@ -1,6 +1,6 @@
 export g0surface
 """
-    g0surface(hm::HMesh,d=3), g0surface(m::Mesh,d=3)
+    g0surface(hm::{HMesh, Mesh}, d=3)
 
 This function takes in input a mesh (or an half egde data structure of a mesh) and returns a g0 multipatch surface obtained using the Approximate Catmull-Clark scheme (ACC3)
 

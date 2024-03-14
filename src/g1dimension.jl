@@ -1,4 +1,56 @@
-export g1dimension, g1matrix
+export g1dimension, g1hom_matrix
+
+
+"""
+    g1dimension(m::{HMesh, Mesh})
+
+Count the dimension of the space of biquintic g1 splines on the mesh, with symmetric quadratic glueing data, using a combinatorial formula depending on the type of edges and vertices in the mesh.
+
+"""
+function g1dimension(m::HMesh)
+    singular_innhedges=0;
+    dim=0;
+    nbc=0;
+    for i in 1:nbv(m)
+        val=valence_of(m,i);
+        if (is_boundary_vertex(m,i))
+            if val==1 #corner
+                dim+=4;
+                nbc+=1;
+            elseif val==2 #regular boundary vertex
+                dim+=4
+            else #boundary EV
+                dim+=2+val
+                #singular_edges+=val
+            end
+        else #interior case
+            if val==4 #regular inner
+                dim+=4;
+            else # inner EV
+                dim+=3+val;
+                #singular_edges+=val
+            end
+        end
+    end
+    for i in 1:nbe(m)
+        if is_singular_edge(m,i) && opp(m,i)!=0
+            singular_innhedges+=1;
+        end
+    end
+    regular_innhedges=nbe(m)-singular_innhedges-nb_boundary_edge(m);
+    dim+=singular_innhedges
+    dim+=2*regular_innhedges;
+    dim+=4*nb_boundary_edge(m);
+    dim+=4*nbf(m) #4 inner free face points
+    return dim #[dim, dim-4*(nbf(m)+nbc+nb_boundary_edge(m))];
+end
+
+function g1dimension(m::Mesh)
+    g1dimension(hmesh(m))
+end
+
+
+
 
 function Aglue(N1,N2,x)
     a = 2*cos(2*pi/N1)*(1-x)^2-2*cos(2*pi/N2)*x^2 #+ x^2
@@ -39,7 +91,7 @@ end
 #=
 Compute the matrix defining the edge spline basis, in a compressed form.
 =#
-function g1matrix_edge(kn::Array, N1::Int64, N2::Int64;
+function g1hom_matrix_edge(kn::Array, N1::Int64, N2::Int64;
                        zeroOnEdge=false,
                        equalAcrossEdge=false,
                        oppositeAcrossEdge=false,
@@ -256,12 +308,12 @@ function expand_spmatrix(K,I,m)
     return Ke
 end
 
-#=
+"""
  Compute the matrix defining the G1 splines on the mesh hm with the knot distribution kn using quadratic glueing data.
 
  It assumes that boundary vertices are regular.
-=#
-function g1matrix(hm, kn)
+"""
+function g1hom_matrix(hm, kn)
     m, d = dim_deg(kn)
 
     bs = BSplineBasis(kn,d+1,false)
@@ -354,7 +406,16 @@ function g1matrix(hm, kn)
     return S;
 end
 
-function g1dimension(hm,kn)
-    S = g1matrix(hm,kn)
+"""
+    g1dimension(m::HMesh, kn::Vector)
+
+Computes the dimension of the space of G1 splines associated to the knot sequence `kn` on the mesh `m`, with symmetric quadratic glueing data.
+"""
+function g1dimension(hm::HMesh, kn::Vector)
+    S = g1hom_matrix(hm,kn)
     return size(S,2)-rank(S)
+end
+
+function g1dimension(m::Mesh, kn::Vector)
+    return g1dimension(hmesh(m), kn)
 end
