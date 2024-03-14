@@ -1,7 +1,17 @@
 export redefine_boundary_edges!
 """
 This function modifies the half edge data structure of a mesh re-defining some edges to be boundaries. 
-    It is done giving in input a list of indices identifying the edges (in the half edge structure) to be set as boundaries.
+    It is done giving in input a list of indices identifying the two vertices defining the edges (in the half edge structure) to be set as boundaries.
+
+## Example
+
+    using GSplines, SemiAlgebraicTypes, Axl
+    m = offdata("cube.off")
+    hm = hmesh(m)
+    redefine_boundary_edges!(hm,[1 15])
+    s1 = g1surface(hm)
+    @axlview s1
+
 """
 function redefine_boundary_edges!(hm::HMesh, sharp_edges::Array)
     
