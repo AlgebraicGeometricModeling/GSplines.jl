@@ -10,10 +10,3 @@ g0surface
 ```@docs 
 g1surface
 ```
-
-```@docs
-GSplines.redefine_boundary_edges!
-```
-
-
-
