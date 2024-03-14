@@ -8,12 +8,15 @@ G1 solving strategy and will return an array composed by the patches constituing
 By default, if two EVs are connected, the mesh is split.
 If the option `check_ev = false`, this does not happen, but the construction may be wrong.
 
+The input string contains the solving strategy for the construction of the G1 surface to be selected from the
+    following four: "CS-S","CS-AS","NCS-S","NCS-AS". The default strategy is "CS-S".
+
 ## Example
 
     using G1Splines
     m = offdata("cube.off")
     g1 = g1surface(m)
-
+    
 """
 function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
 
