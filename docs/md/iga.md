@@ -1,4 +1,4 @@
-# IsoGeometric Analysis
+# IsoGeometric Analysis and Point Cloud Fitting
 ```@index
 Pages = ["iga.md"]
 ```
@@ -9,6 +9,10 @@ g1hom_matrix
 
 ```@docs 
 g1basis
+```
+
+```@docs 
+ToGismo
 ```
 
 
