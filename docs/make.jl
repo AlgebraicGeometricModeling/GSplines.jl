@@ -21,8 +21,7 @@ makedocs(
         "About the package"  => "package.md",
     ],
     repo = Remotes.GitHub("AlgebraicGeometricModeling", "GSplines.jl"),
-    doctest = false,
-    checkdocs=:none
+    doctest = false
 )
 
 #deploydocs(

@@ -11,5 +11,7 @@ g0surface
 g1surface
 ```
 
-
+```@docs
+GSplines.redefine_boundary_edges!
+```
 
