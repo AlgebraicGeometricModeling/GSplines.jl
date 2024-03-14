@@ -1,12 +1,13 @@
 export set_boundary!
 """
 This function modifies the half edge data structure of a mesh re-defining some edges to be boundaries. 
-    It is done giving in input a list of indices identifying the edges (in the half edge structure) to be set as boundaries.
+    It is done giving in input a matrix of indices identifying the end points of the edges (one edge per row) to be set as boundaries.
 
 ## Example
 
+      using GSplines, SemiAlgebraicTypes
       hm = hmesh(offdata("cube.off"))
-      set_boundary!(hm, [1,2])
+      set_boundary!(hm, [1 2; 3 4])
       
 """
 function set_boundary!(hm::HMesh, sharp_edges::Array)
