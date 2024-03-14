@@ -3,7 +3,8 @@
 Pages = ["iga.md"]
 ```
 ```@docs 
-g1dimension
+GSplines.g1dimension
+GSplines.g1hom_matrix
 ```
 
 ```@docs 
