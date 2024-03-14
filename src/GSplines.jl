@@ -33,6 +33,8 @@ include("acc_d.jl")
 include("ordering.jl")
 
 include("mesh_operations.jl")
+include("mesh_boundary.jl")
+
 include("mask_degree_elevate.jl")
 include("mask_operations.jl")
 include("order_bezier_cp.jl")
@@ -41,6 +43,7 @@ include("g1basis.jl")
 include("g1basis_bezier.jl")
 
 include("get_basis_from_sparse.jl")
+
 include("g1dimension.jl")
 
 include("eval.jl")
@@ -51,7 +54,7 @@ include("insert_knot.jl")
 include("g1basis_gluingdata.jl")
 include("g1basis_assemble_gluing.jl")
 
-include("redefine_boundary_edges.jl")
+
 
 include("off_read.jl")
 include("gismo_write.jl")
