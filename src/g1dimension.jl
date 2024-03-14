@@ -38,11 +38,11 @@ function g1dimension(m::HMesh)
         end
     end
     regular_innhedges=nbe(m)-singular_innhedges-nb_boundary_edge(m);
-    dim+=singular_innhedges;
+    dim+=singular_innhedges
     dim+=2*regular_innhedges;
     dim+=4*nb_boundary_edge(m);
     dim+=4*nbf(m) #4 inner free face points
-    return [dim, dim-4*(nbf(m)+nbc+nb_boundary_edge(m))];
+    return dim #[dim, dim-4*(nbf(m)+nbc+nb_boundary_edge(m))];
 end
 
 function g1dimension(m::Mesh)
