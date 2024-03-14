@@ -1,16 +1,16 @@
 export g1basis
 """
 This function takes in input a quad mesh and returns a sparse matrix containing the coefficients defining a set of G1 biquintic basis functions on the input mesh.
-    The construction holds for both planar and nonplanar quad meshes. The input mesh is assumed to be with isolated EVs and with no boundary EVs.
+The construction holds for both planar and nonplanar quad meshes. The input mesh is assumed to be with isolated EVs and with no boundary EVs.
 
  - ncols of the sparse matrix gives the dimension of the spline space,
  - nrows is the total number of control points in the mesh i.e. nfaces*36
 
- ## Example
+## Example
 
- using G1Splines
- m = offdata("triangle_planar.off")
- basis = g1basis(m)
+    using GSplines
+    m = offdata("triangle_planar.off")
+    basis = g1basis(m)
 
 """
 function g1basis(m::HMesh)

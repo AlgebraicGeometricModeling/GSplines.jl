@@ -183,18 +183,17 @@ end
 # Does both surface and basis in one file
 #
 """
-This function produces the .xml file containing both the spline geometry and associated biquintic basis functions (stored as sparse matrix) that can be loaded in G+Smo scripts
-    to be used in IsoGeometric Analysis simulations or in point cloud fitting problems. 
+This function produces the `.xml` file containing both the spline geometry and associated biquintic basis functions (stored as sparse matrix) that can be loaded in G+Smo scripts to be used in IsoGeometric Analysis simulations or in point cloud fitting problems. 
 
-    It may also creates .xml files containing only the geometry or the set of basis functions.
+It may also creates `.xml` files containing only the geometry or the set of basis functions.
 
 ## Example
 
- using G1Splines
- m = offdata("triangle_planar.off")
- s1 = g1surface(m)
- basis = g1basis(m)
- ToGismo(s1,basis,s1.knots,'filename')
+    using GSplines
+    m = offdata("triangle_planar.off")
+    s1 = g1surface(m)
+    basis = g1basis(m)
+    ToGismo(s1,basis,s1.knots,'filename')
 
 """
 function ToGismo(gs, basis, knt, fl)

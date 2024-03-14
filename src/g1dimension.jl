@@ -405,7 +405,7 @@ function g1hom_matrix(hm, kn)
 end
 
 """
-    g1dimension(m::HMesh, kn::Vector)
+    g1dimension(m::{HMesh, Mesh}, kn::Vector)
 
 Computes the dimension of the space of G1 splines associated to the knot sequence `kn` on the mesh `m`, with symmetric quadratic glueing data.
 """
