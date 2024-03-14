@@ -574,10 +574,10 @@ function divideEV(m::HMesh)
                     @warn("The mesh has two adjacent EVs. One step of Catmull-Clark subdivision will be performed to continue the computation.")
                     cc_subdivide!(m);
                     return
-                #elseif isEV(m,p)==2 && opp(m,p)==0
-                #    @warn("The mesh has an EVs linked to a boundary vertex. One step of Catmull-Clark subdivision will be performed to continue the computation.")
-                #    cc_subdivide!(m);
-                    #return
+                elseif isEV(m,p)==2 && opp(m,p)==0
+                    @warn("The mesh has an EVs linked to a boundary vertex. One step of Catmull-Clark subdivision will be performed to continue the computation.")
+                    cc_subdivide!(m);
+                    return
                 end
             end
         end
