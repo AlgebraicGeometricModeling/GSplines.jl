@@ -8,11 +8,7 @@ This function modifies the half edge data structure of a mesh re-defining some e
       hm = hmesh(offdata("cube.off"))
       set_boundary!(hm, [1,2])
       redefine_boundary_edges!(hm,[1 15])
-      s1 = g1surface(hm)
-      @axlview
-
-      ![sharp_cube](cube_sharp_edge.png)
-
+      
 """
 function set_boundary!(hm::HMesh, sharp_edges::Array)
     
