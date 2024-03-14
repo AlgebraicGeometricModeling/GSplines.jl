@@ -6,8 +6,7 @@ This function modifies the half edge data structure of a mesh re-defining some e
 ## Example
 
       hm = hmesh(offdata("cube.off"))
-      set_boundary!(hm, [1,2])
-      redefine_boundary_edges!(hm,[1 15])
+      set_boundary!(hm, [1,15])
       
 """
 function set_boundary!(hm::HMesh, sharp_edges::Array)
