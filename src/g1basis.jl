@@ -37,7 +37,7 @@ a=2*cos(2*pi/N);
 
 #b00
 
-VAL=0.5;
+VAL=1;
 
 for i in 0:N-1
     bas[i*36+1,1]=VAL; #b00=1
