@@ -193,7 +193,7 @@ It may also creates `.xml` files containing only the geometry or the set of basi
     m = offdata("triangle_planar.off")
     s1 = g1surface(m)
     basis = g1basis(m)
-    ToGismo(s1,basis,s1.knots,'filename')
+    ToGismo(s1,basis,s1.knots,"filename")
 
 """
 function ToGismo(gs, basis, knt, fl)
