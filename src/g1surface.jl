@@ -34,7 +34,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
     ncp_tot=36*nbf(hm);
     C5  = fill(0.0, 3, ncp_tot) #global matrix of cp
 
-    P=neigh(hm);
+    P = neigh(hm);
 
     CP3=zeros(3,16,1);
     CP5=zeros(3,36,1);
