@@ -38,7 +38,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
 
     CP3=zeros(3,16,1);
     CP5=zeros(3,36,1);
-    sup=[];
+    #sup=[]; #not needed ?
 
     D=collect(keys(get(G1S[:masks],S,0)));
 
@@ -55,7 +55,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             mpoints=hm.points[:,P[1][i][3:end]] #Mesh points corresponding to the neighborhood
             CP3[:,:,1]=mpoints*B; #Bézier control points
             order_bezier_cp(gs5,C5,mpoints*B,edge,3);
-            push!(sup,order_plot(CP3,3));
+            #push!(sup,order_plot(CP3,3));
             #end
         else
             #elseif N in D
@@ -66,7 +66,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             mpoints=hm.points[:,P[1][i][3:end]]; #Mesh points corresponding to the neighborhood
             CP5[:,:,1]=mpoints*B; #bezier control points
             order_bezier_cp(gs5,C5,mpoints*B,edge,5);
-            push!(sup,order_plot(CP5,5));
+            #push!(sup,order_plot(CP5,5));
         end
     end
 
@@ -82,7 +82,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         CP3[:,:,1]=mpoints*B;
         order_bezier_cp(gs5,C5,mpoints*B,edge,3);
         #order_bezier_cp(gs3,C3,mpoints*B,edge,3);
-        push!(sup,order_plot(CP3,3));
+        #push!(sup,order_plot(CP3,3));
     #=elseif N!=4 && opp(hm,next(hm,next(hm,edge)))==0
         B=G1matrix(N,S,"EVREGBORDER1");
         mpoints=hm.points[:,P[2][i][3:end]]; #Mesh points corresponding to the neighborhood
