@@ -1,4 +1,4 @@
-export acc3,acc_d
+export acc3, acc_d
 
 function face_point(msh, e, v)
     p =  point_of(msh,e)*v

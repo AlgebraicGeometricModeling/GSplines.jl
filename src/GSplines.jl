@@ -56,8 +56,6 @@ include("g1basis_gluingdata.jl")
 include("g1basis_assemble_gluing.jl")
 
 
-
-include("off_read.jl")
 include("gismo_write.jl")
 include("axl_write.jl")
 

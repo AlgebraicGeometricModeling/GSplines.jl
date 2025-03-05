@@ -39,7 +39,7 @@ if T=="INNER"
     if N==4
         B=acc3bigmatrix(N,"INNEREV");
     else
-        M2=degree_elevate_mask(N,1,0);
+        M2=degree_elevate_mask(N,"INNEREV",0); #1
         B=ordermatrix(M2,N,"INNER");
         a=2*cos(2*pi/N);
 
@@ -292,7 +292,7 @@ if T=="INNER"
 
 elseif T=="EVREGBORDER"
 
-    M2=degree_elevate_mask(N,6,0);
+    M2=degree_elevate_mask(N, "CORNER",0); #6
     B=ordermatrix(M2,N,"EVREGBORDER");
     a=2*cos(2*pi/N);
 
@@ -544,7 +544,7 @@ elseif T=="EVREGBORDER"
 
 elseif T=="EVREGBORDER1"
 
-    M2=degree_elevate_mask(N,2,0);
+    M2=degree_elevate_mask(N,"BORDER1",0);#2
     B=ordermatrix(M2,N,"EVREGBORDER1");
     a=2*cos(2*pi/N);
 
@@ -796,7 +796,7 @@ elseif T=="EVREGBORDER1"
 
 elseif T=="EVREGBORDER2"
 
-    M2=degree_elevate_mask(N,7,0);
+    M2=degree_elevate_mask(N,"BORDER2",0); #7
     B=ordermatrix(M2,N,"EVREGBORDER2");
     a=2*cos(2*pi/N);
 
@@ -1053,9 +1053,9 @@ else #T=="BORDEREV" for borders EVs we directly impose the G1 conditions
 
     a=2*cos(2*pi/N);
     k=convert(Int64,N/2);
-    B1=degree_elevate_mask(N,3,k); #right border
-    B2=degree_elevate_mask(N,4,k); #left border
-    B3=degree_elevate_mask(N,5,k); #inner face border ev vertex
+    B1=degree_elevate_mask(N,"BORDEREVR",k); #3 #right border
+    B2=degree_elevate_mask(N,"BORDEREVL",k); #4 #left border
+    B3=degree_elevate_mask(N,"BORDERFACEEV",k); #5 #inner face border ev vertex
     B1=ordermatrix(B1,N,"BEV");
     B2=ordermatrix(B2,N,"BEV");
     B3=ordermatrix(B3,N,"BEV");

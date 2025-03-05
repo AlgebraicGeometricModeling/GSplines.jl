@@ -21,23 +21,23 @@ degree_elevate =function(M)
     return MM
 end
 
-function degree_elevate_mask(N::Int, t::Int, k::Int)
+function degree_elevate_mask(N::Int, t::String, k::Int)
     #t::type of the patch, t==1 interior t==2 border t==3 rightEVpatch t==4 leftEVpatch t==5 innerface with borderEV t==6 corner
     #k::border vertex valence
 
-    if t==1
+    if t=="INNEREV" #1
         B=acc3bigmatrix(N,"INNEREV");
-    elseif t==2
+    elseif t=="BORDER1" #2
         B=acc3bigmatrix(N,"BORDER1");
-    elseif t==3
+    elseif t=="BORDEREVR" #3
         B=acc3bigmatrix(N,"BORDEREVR");
-    elseif t==4
+    elseif t=="BORDEREVL" #4
         B=acc3bigmatrix(N,"BORDEREVL");
-    elseif t==5
+    elseif t=="BORDERFACEEV" #5
         B=acc3bigmatrix(N,"BORDERFACEEV");
-    elseif t==6
+    elseif t=="CORNER" #6
         B=acc3bigmatrix(N,"CORNER");
-    elseif t==7
+    elseif t=="BORDER2" #7
         B=acc3bigmatrix(N,"BORDER2");
     end
 

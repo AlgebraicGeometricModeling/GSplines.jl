@@ -36,6 +36,8 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
 
     P = neigh(hm);
 
+    println(" P = ", P)
+    
     CP3=zeros(3,16,1);
     CP5=zeros(3,36,1);
     #sup=[]; #not needed ?
@@ -95,10 +97,10 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         order_bezier_cp(gs5,C5,mpoints*B,edge,5);
         CP5[:,:,1]=mpoints*B; #bezier control points
         push!(sup,order_plot(CP5,5));=#
-    #end
+
     end
 
-#Corner patches
+    #Corner patches
 
     for i in 1:length(P[3])
         N=P[3][i][1];
@@ -108,7 +110,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             mpoints=hm.points[:,P[3][i][3:end]];
             CP3[:,:,1]=mpoints*B;
             order_bezier_cp(gs5,C5,mpoints*B,edge,3);
-            push!(sup,order_plot(CP3,3));
+            #push!(sup,order_plot(CP3,3));
         else
             #if N in collect(keys(get(G1S[:masks],string("CP",S),0)))
             B=get(get(G1S[:masks],string("CP",S),Dict{Int,Any}()),N,G1matrix(N,S,"EVREGBORDER"));
@@ -118,7 +120,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             mpoints=hm.points[:,P[3][i][3:end]]; #Mesh points corresponding to the neighborhood
             order_bezier_cp(gs5,C5,mpoints*B,edge,5);
             CP5[:,:,1]=mpoints*B; #bezier control points
-            push!(sup,order_plot(CP5,5));
+            #push!(sup,order_plot(CP5,5));
         end
     end
 
@@ -134,9 +136,9 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         else
             B=G1matrix(N,S,"BORDEREV");
         end
-        B1=degree_elevate_mask(N,3,k); #right patch
-        B2=degree_elevate_mask(N,4,k); #left patch
-        B3=degree_elevate_mask(N,5,k); #middle patches
+        B1=degree_elevate_mask(N,"BORDEREVR",k); #3 #right patch
+        B2=degree_elevate_mask(N,"BORDEREVL",k); #4 #left patch
+        B3=degree_elevate_mask(N,"BORDERFACEEV",k) #5; #middle patches
         mpoints=hm.points[:,P[4][i][3:end]];
 
         B1=ordermatrix(B1,N,"BEV");
@@ -148,7 +150,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         order_bezier_cp(gs5,C5,mpoints*B1,l[1],5);
         CP5[:,:,1]=mpoints*B1; #bezier control points
 
-        push!(sup,order_plot(CP5,5));
+        #push!(sup,order_plot(CP5,5));
 
         B2=ordermatrix(B2,N,"BEV");
         B2[:,2]=B[:,k-1];
@@ -158,7 +160,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         B2[:,17]=B[:,7*k-6];
         order_bezier_cp(gs5,C5,mpoints*B2,l[end],5);
         CP5[:,:,1]=mpoints*B2; #bezier control points
-        push!(sup,order_plot(CP5,5));
+        #push!(sup,order_plot(CP5,5));
 
         B3=ordermatrix(B3,N,"BEV");
         for i in 2:k-1
@@ -173,7 +175,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             B3[:,17]=B[:,6*k+i-6];
             order_bezier_cp(gs5,C5,mpoints*B3,l[i],5);
             CP5[:,:,1]=mpoints*B3; #bezier control points
-            push!(sup,order_plot(CP5,5));
+            #push!(sup,order_plot(CP5,5));
 
             for i in 2:36
                 B3[:,i]=completeshift(B3[:,i],k,1,"BORDER");
