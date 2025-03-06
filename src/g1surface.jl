@@ -36,16 +36,15 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
 
     P = neigh(hm);
 
-    println(" P = ", P)
+    #println(" P = ", P)
     
-    CP3=zeros(3,16,1);
+    #CP3=zeros(3,16,1);
     CP5=zeros(3,36,1);
     #sup=[]; #not needed ?
 
     D=collect(keys(get(G1S[:masks],S,0)));
 
     #Inner patches with, eventually, EVs not on boundaries
-
     for i in 1:length(P[1])
         N=P[1][i][1]; #EV valence
         edge=P[1][i][2]; #face hedge going out from the EV (when present)
@@ -55,7 +54,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
             #else
             B=get(get(G1S[:masks],"RV",Dict{Int,Any}()),N,acc3bigmatrix(N,"INNEREV")) #Bézier ACC3 subdivision matrix
             mpoints=hm.points[:,P[1][i][3:end]] #Mesh points corresponding to the neighborhood
-            CP3[:,:,1]=mpoints*B; #Bézier control points
+            #CP3[:,:,1]=mpoints*B; #Bézier control points
             order_bezier_cp(gs5,C5,mpoints*B,edge,3);
             #push!(sup,order_plot(CP3,3));
             #end
@@ -81,7 +80,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         #if N==4
         B=get(get(G1S[:masks],"BP",Dict{Int,Any}()),N,acc3bigmatrix(N,"BORDER1"));
         mpoints=hm.points[:,P[2][i][3:end]];
-        CP3[:,:,1]=mpoints*B;
+        #CP3[:,:,1]=mpoints*B;
         order_bezier_cp(gs5,C5,mpoints*B,edge,3);
         #order_bezier_cp(gs3,C3,mpoints*B,edge,3);
         #push!(sup,order_plot(CP3,3));
@@ -108,7 +107,7 @@ function g1surface(hm::HMesh, S::String = "CS-S"; check_ev = true)
         if N==4
             B=get(get(G1S[:masks],"CP",Dict{Int,Any}()),N,acc3bigmatrix(N,"CORNER"));
             mpoints=hm.points[:,P[3][i][3:end]];
-            CP3[:,:,1]=mpoints*B;
+            #CP3[:,:,1]=mpoints*B;
             order_bezier_cp(gs5,C5,mpoints*B,edge,3);
             #push!(sup,order_plot(CP3,3));
         else

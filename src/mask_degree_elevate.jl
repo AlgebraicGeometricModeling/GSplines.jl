@@ -1,3 +1,5 @@
+export degree_elevate, degree_elevate_mask 
+
 degree_elevate =function(M)
     MM = fill(zero(M[1,1]), size(M,1)+1, size(M,2)+1)
     n = size(M,2)-1

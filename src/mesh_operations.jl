@@ -1,33 +1,33 @@
 export divideEV
 
 function kindofface(m::HMesh)
-F=nbf(m);
-innerf=Int64[];
-borderf=Int64[];
-cornerf=Int64[];
-for i in 1:F
-    e=Int64[];
-    z=0;
-    push!(e,i);
-    fe=edges_on_face(m,i);
-    for j in 1:convert(Int64,length(fe))
-        if opp(m,fe[j])==0 #border edge
-            push!(e,0);
-            z=z+1;
-        else
-            push!(e,1);
+    F=nbf(m);
+    innerf=Int64[];
+    borderf=Int64[];
+    cornerf=Int64[];
+    for i in 1:F
+        e=Int64[];
+        z=0;
+        push!(e,i);
+        fe=edges_on_face(m,i);
+        for j in 1:convert(Int64,length(fe))
+            if opp(m,fe[j])==0 #border edge
+                push!(e,0);
+                z=z+1;
+            else
+                push!(e,1);
+            end
         end
-    end
 
-    if z==0 #interior face
-        push!(innerf,i);
-
-    elseif z==1 #border face
-        push!(borderf,i);
-
-    else #corner face
-        push!(cornerf,i);
-
+        if z==0 #interior face
+            push!(innerf,i);
+            
+        elseif z==1 #border face
+            push!(borderf,i);
+            
+        else #corner face
+            push!(cornerf,i);
+            
     end
 
 end
@@ -113,6 +113,7 @@ function neigh(m::HMesh)
     inner=kindofface(m)[1];
     border=kindofface(m)[2];
     corner=kindofface(m)[3];
+    
     inner_points=Int64[];
     border_points=Int64[];
     corner_points=Int64[];
@@ -138,30 +139,30 @@ function neigh(m::HMesh)
             Bneigh=Int64[];
             Cneigh=Int64[];
             Dneigh=Int64[];
-        push!(fneigh,V[1]); #vertex valence
-        push!(fneigh,e);
-        push!(fneigh,e); #center mask
-        ne=next(m,e);
+            push!(fneigh,V[1]); #vertex valence
+            push!(fneigh,e);
+            push!(fneigh,e); #center mask
+            ne=next(m,e);
             try
-        push!(fneigh,ne); #right 1st neigh point
-        push!(sneigh,next(m,ne)); #1st value of 2nd neigh
-        push!(Aneigh,next(m,next(m,opp(m,ne)))); #1st value of Aneigh
-        push!(Bneigh,next(m,next(m,next(m,opp(m,ne))))); #1st value of Bneigh
-        push!(Cneigh,next(m,next(m,opp(m,next(m,ne))))); #1st value of Cneigh
-        push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne)))))); #1st value of Dneigh
+                push!(fneigh,ne); #right 1st neigh point
+                push!(sneigh,next(m,ne)); #1st value of 2nd neigh
+                push!(Aneigh,next(m,next(m,opp(m,ne)))); #1st value of Aneigh
+                push!(Bneigh,next(m,next(m,next(m,opp(m,ne))))); #1st value of Bneigh
+                push!(Cneigh,next(m,next(m,opp(m,next(m,ne))))); #1st value of Cneigh
+                push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne)))))); #1st value of Dneigh
 
-        edge1=ne;
-
-        while edge1 != next(m,opp(m,prev(m,(prev(m,ne)))))
-
-            ne=next(m,opp(m,prev(m,(prev(m,ne)))));
-            push!(fneigh,ne);
-            push!(sneigh,next(m,ne));
-            push!(Aneigh,next(m,next(m,opp(m,ne))));
-            push!(Bneigh,next(m,next(m,next(m,opp(m,ne)))));
-            push!(Cneigh,next(m,next(m,opp(m,next(m,ne)))));
-            push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne))))));
-        end
+                edge1=ne;
+                
+                while edge1 != next(m,opp(m,prev(m,(prev(m,ne)))))
+                    
+                    ne=next(m,opp(m,prev(m,(prev(m,ne)))));
+                    push!(fneigh,ne);
+                    push!(sneigh,next(m,ne));
+                    push!(Aneigh,next(m,next(m,opp(m,ne))));
+                    push!(Bneigh,next(m,next(m,next(m,opp(m,ne)))));
+                    push!(Cneigh,next(m,next(m,opp(m,next(m,ne)))));
+                    push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne))))));
+                end
             catch ne
                 if isa(ne,BoundsError)
                     e=next(m,e);
