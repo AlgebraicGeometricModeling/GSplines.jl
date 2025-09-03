@@ -13,7 +13,7 @@ The input string contains the solving strategy for the construction of the G1 su
 
 ## Example
 
-    using G1Splines
+    using GSplines
     m = offdata("cube.off")
     g1 = g1surface(m)
     

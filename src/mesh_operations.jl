@@ -30,7 +30,7 @@ function kindofface(m::HMesh)
             
     end
 
-end
+    end
 
     #Isolate border patches with EV
 
@@ -288,7 +288,7 @@ function neigh(m::HMesh)
 
     fakeneigh_points=Int64[];
 
-        for i in 1:length(rightEVborder)
+    for i in 1:length(rightEVborder)
             fneigh=Int64[];
             sneigh=Int64[];
             Aneigh=Int64[];
