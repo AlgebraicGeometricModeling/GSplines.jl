@@ -18,7 +18,7 @@ The output matrix B has smoothing masks ordered as follow
 ```
  For regular vertices N=4 it will return ACC3 smoothing masks
 =#
-function G1matrix(N::Int, S::String="CS-S", T::String="INNER")
+function g1_mask(N::Int, S::String="CS-S", T::String="INNER")
 
 
 if S=="NCS-S"
@@ -37,7 +37,7 @@ end
 
 if T=="INNER"
     if N==4
-        B=acc3bigmatrix(N,"INNEREV");
+        B=acc3_masks(N,"INNEREV");
     else
         M2=degree_elevate_mask(N,"INNEREV",0); #1
         B=ordermatrix(M2,N,"INNER");
