@@ -1,4 +1,7 @@
+
 export divideEV
+
+
 
 function kindofface(m::HMesh)
     F=nbf(m);
@@ -11,7 +14,7 @@ function kindofface(m::HMesh)
         push!(e,i);
         fe=edges_on_face(m,i);
         for j in 1:convert(Int64,length(fe))
-            if opp(m,fe[j])==0 #border edge
+            if is_border(m,fe[j]) #border edge
                 push!(e,0);
                 z=z+1;
             else
@@ -28,23 +31,23 @@ function kindofface(m::HMesh)
         else #corner face
             push!(cornerf,i);
             
-    end
+        end
 
-end
+    end
 
     #Isolate border patches with EV
 
     EVborderf=Int64[];
     REGborderf=Int64[];
     for i in 1:length(borderf)
-        e=m.faces[borderf[i]]; #face hedge
-        while opp(m,e)!=0 #select border hedge with no opposite
+        e=edge_of_face(m,borderf[i]); #face hedge
+        while !is_border(m,e) #select border hedge with no opposite
             e=next(m,e);
         end
         if opp(m,prev(m,opp(m,prev(m,e))))==0 && opp(m,next(m,opp(m,next(m,e))))==0  #case of a regular border patch with k=2
-        push!(REGborderf,borderf[i]);
+            push!(REGborderf,borderf[i]);
         else
-        push!(EVborderf,e);
+            push!(EVborderf,e);
         end
     end
 
@@ -54,7 +57,7 @@ end
     REGinnerf=Int64[];
     for j in 1:length(innerf)
         z=0;
-        e=m.faces[innerf[j]]; #face hedge
+        e=edge_of_face(m,innerf[j]); #face hedge
         for i in 1:4
             f=ccw_edges(m,e);
             if opp(m,prev(m,f[end]))!=0
@@ -69,7 +72,13 @@ end
         end
     end
 
+    for f in REGinnerf  @assert(face_type(m,f)[1]=="RegInnerFace")    end
+    for f in REGborderf @assert(face_type(m,f)[1]=="RegBorderFace")    end
+    for f in cornerf    @assert(face_type(m,f)[1]=="CornerFace")    end
+    for f in EVinnerf   @assert(face_type(m,m.edges[f].face)[1]=="BVInnerFace")    end
+    for f in EVborderf  @assert(contains(face_type(m,m.edges[f].face)[1],"EVBorderFace"))    end
 
+    println("---->>>>>> EVborderf   ", EVborderf)
     return REGinnerf,REGborderf,cornerf,EVinnerf,EVborderf
 
 end
@@ -91,13 +100,13 @@ function vertexvalence(m::HMesh, e::Int64) #find the edge corresponding to an ev
     for i in 1:4
       ei=e;
       c=1;
-      if opp(m,e)!=0 && opp(m,next(m,opp(m,e)))!=0
+      if !is_border(m,e) && !is_border(m,next(m,opp(m,e)))
           while ei != next(m,opp(m,e))
               e=next(m,opp(m,e));
               c=c+1; #vertex valence
           end
           if c != 4
-              return c,ei
+              return c, ei
           end
       end
               e=next(m,ei);
@@ -107,6 +116,9 @@ end
 
 #-------------------------------------------------------------------------------------
 
+include("mesh_neighbors.jl")
+
+#-------------------------------------------------------------------------------------x
 
 function neigh(m::HMesh)
 
@@ -126,7 +138,7 @@ function neigh(m::HMesh)
         Cneigh=Int64[];
         Dneigh=Int64[];
         innerneighpoints=Int64[];
-        e=m.faces[inner[i]]; #face hedge
+        e=edge_of_face(m,inner[i]); #face hedge
         V=vertexvalence(m,e);
         if V[1] !=4
             e=V[2];
@@ -184,7 +196,7 @@ function neigh(m::HMesh)
         fneigh=Int64[];
         sneigh=Int64[];
         borderneighpoints=Int64[];
-        e=m.faces[border[i]];
+        e=edge_of_face(m,border[i]);
         V=vertexvalence(m,e);
         if V[1] !=4
             val=V[1];
@@ -237,7 +249,7 @@ function neigh(m::HMesh)
         fneigh=Int64[];
         sneigh=Int64[];
         cornerneighpoints=Int64[];
-        e=m.faces[corner[i]];
+        e=edge_of_face(m,corner[i]);
         V=vertexvalence(m,e);
         if V[1] !=4
             val=V[1];
@@ -288,49 +300,49 @@ function neigh(m::HMesh)
 
     fakeneigh_points=Int64[];
 
-        for i in 1:length(rightEVborder)
-            fneigh=Int64[];
-            sneigh=Int64[];
-            Aneigh=Int64[];
-            Bneigh=Int64[];
-            Cneigh=Int64[];
-            Dneigh=Int64[];
-            boundEVneighpoints=Int64[];
-            e=rightEVborder[i];
-
-            k=length(ccw_edges(m,e));
-            push!(fneigh,k); #boundary patches valance
-            push!(fneigh,e); #center mask
-            push!(fneigh,e); #lo metto due volte per ricordarmi l'hedge e non convertirlo in punto per dopo
-            ne=next(m,e);
-            push!(fneigh,ne); #right 1st neigh point
-            push!(sneigh,next(m,ne)); #1st value of 2nd neigh
-            push!(Aneigh,next(m,next(m,opp(m,ne)))); #1st value of Aneigh
-            push!(Bneigh,next(m,next(m,next(m,opp(m,ne))))); #1st value of Bneigh
-            push!(Cneigh,next(m,next(m,opp(m,next(m,ne))))); #1st value of Cneigh
-            push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne)))))); #1st value of Dneigh
-            for i in 1:k-1
-                ne=next(m,opp(m,prev(m,(prev(m,ne)))));
-                push!(fneigh,ne);
-                push!(sneigh,next(m,ne));
-                push!(Aneigh,next(m,next(m,opp(m,ne))));
-                push!(Bneigh,next(m,next(m,next(m,opp(m,ne)))));
-                push!(Cneigh,next(m,next(m,opp(m,next(m,ne)))));
-                push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne))))));
-            end
-            push!(fneigh,prev(m,prev(m,ne))); #I complete the neighborhoods
-            push!(Aneigh,prev(m,opp(m,prev(m,prev(m,prev(m,ne))))));
-
-            #boundEVneighpoints=hcat(fneigh',fneigh[5:end-1]',sneigh',sneigh',Aneigh',Aneigh[2:end-1]',Bneigh',Bneigh',Dneigh',Dneigh',Cneigh',Cneigh');
-            boundEVneighpoints=hcat(fneigh',sneigh',Aneigh',Bneigh',Dneigh',Cneigh');
-
-            for i in 3:convert(Int64,length(boundEVneighpoints))
-                boundEVneighpoints[i]=ptidx_of(m,boundEVneighpoints[i]);
-            end
-            fakeneigh_points=vcat(fakeneigh_points,[boundEVneighpoints]);
+    for i in 1:length(rightEVborder)
+        fneigh=Int64[];
+        sneigh=Int64[];
+        Aneigh=Int64[];
+        Bneigh=Int64[];
+        Cneigh=Int64[];
+        Dneigh=Int64[];
+        boundEVneighpoints=Int64[];
+        e=rightEVborder[i];
+        
+        k=length(ccw_edges(m,e));
+        push!(fneigh,k); #boundary patches valance
+        push!(fneigh,e); #center mask
+        push!(fneigh,e); #lo metto due volte per ricordarmi l'hedge e non convertirlo in punto per dopo
+        ne=next(m,e);
+        push!(fneigh,ne); #right 1st neigh point
+        push!(sneigh,next(m,ne)); #1st value of 2nd neigh
+        push!(Aneigh,next(m,next(m,opp(m,ne)))); #1st value of Aneigh
+        push!(Bneigh,next(m,next(m,next(m,opp(m,ne))))); #1st value of Bneigh
+        push!(Cneigh,next(m,next(m,opp(m,next(m,ne))))); #1st value of Cneigh
+        push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne)))))); #1st value of Dneigh
+        for i in 1:k-1
+            ne=next(m,opp(m,prev(m,(prev(m,ne)))));
+            push!(fneigh,ne);
+            push!(sneigh,next(m,ne));
+            push!(Aneigh,next(m,next(m,opp(m,ne))));
+            push!(Bneigh,next(m,next(m,next(m,opp(m,ne)))));
+            push!(Cneigh,next(m,next(m,opp(m,next(m,ne)))));
+            push!(Dneigh,prev(m,opp(m,next(m,opp(m,next(m,ne))))));
         end
+        push!(fneigh,prev(m,prev(m,ne))); #I complete the neighborhoods
+        push!(Aneigh,prev(m,opp(m,prev(m,prev(m,prev(m,ne))))));
 
-        return inner_points,border_points,corner_points,fakeneigh_points
+        #boundEVneighpoints=hcat(fneigh',fneigh[5:end-1]',sneigh',sneigh',Aneigh',Aneigh[2:end-1]',Bneigh',Bneigh',Dneigh',Dneigh',Cneigh',Cneigh');
+        boundEVneighpoints=hcat(fneigh',sneigh',Aneigh',Bneigh',Dneigh',Cneigh');
+
+        for i in 3:convert(Int64,length(boundEVneighpoints))
+            boundEVneighpoints[i]=ptidx_of(m,boundEVneighpoints[i]);
+        end
+        fakeneigh_points=vcat(fakeneigh_points,[boundEVneighpoints]);
+    end
+
+    return inner_points,border_points,corner_points,fakeneigh_points
 end
 
 
@@ -351,7 +363,7 @@ function neighacc3(m::HMesh)
         sneigh=Int64[];
 
         innerneighpoints=Int64[];
-        e=m.faces[inner[i]]; #face hedge
+        e=edge_of_face(m,inner[i]); #face hedge
         V=vertexvalence(m,e);
         if V[1] !=4
             e=V[2];
@@ -399,7 +411,7 @@ function neighacc3(m::HMesh)
         fneigh=Int64[];
         sneigh=Int64[];
         borderneighpoints=Int64[];
-        e=m.faces[border[i]];
+        e=edge_of_face(m,border[i]);
         V=vertexvalence(m,e);
         if V[1] !=4
             val=V[1];
@@ -443,7 +455,7 @@ function neighacc3(m::HMesh)
         fneigh=Int64[];
         sneigh=Int64[];
         cornerneighpoints=Int64[];
-        e=m.faces[corner[i]];
+        e=edge_of_face(m,corner[i]);
         V=vertexvalence(m,e);
         if V[1] !=4
             val=V[1];
@@ -583,6 +595,7 @@ function divideEV(m::HMesh)
             end
         end
     end
+    m
 end
 
 function nbevs(m::HMesh,p::Int64=1)
@@ -708,6 +721,7 @@ end
         m.edges[e]=tmp
     end
 end=#
+
 function is_boundary_edge(m::HMesh,e::Int64)
     return opp(m,e)==0
 end

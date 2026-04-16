@@ -13,10 +13,13 @@ using SparseArrays
 G1S = Dict{Symbol, Any}( :pkgdir => dirname(dirname(pathof(GSplines))) )
 
 export G1S
+
+const EdgeId = Int64
+const FaceId = Int64
     
 #const MASKS=load(joinpath(currentdir,"EVsdict.jld2"))["EVsdict"];
 
-const G1S[:masks] = Dict{String, Dict{Int64, Matrix{Float64}}}();
+G1S[:masks] = Dict{String, Dict{Int64, Matrix{Float64}}}();
 
 include("gspline_struct.jl")
 
@@ -27,7 +30,7 @@ include("g1constraint_matrix.jl")
 include("g0surface.jl")
 include("g1surface.jl")
 
-include("acc3bigmatrix.jl")
+include("acc3_masks.jl")
 
 include("acc_d.jl")
 
@@ -58,5 +61,6 @@ include("g1basis_assemble_gluing.jl")
 
 include("gismo_write.jl")
 include("axl_write.jl")
+include("offdata.jl")
 
 end

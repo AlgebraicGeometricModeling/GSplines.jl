@@ -26,22 +26,22 @@ end
 function degree_elevate_mask(N::Int, t::String, k::Int=3)
     #t::type of the patch, t==1 interior t==2 border t==3 rightEVpatch t==4 leftEVpatch t==5 innerface with borderEV t==6 corner
     #k::border vertex valence
-    B=acc3bigmatrix(N,"INNEREV");
+    B=acc3_masks(N,"INNEREV");
     
     if t=="INNEREV" #1
-        B=acc3bigmatrix(N,"INNEREV");
+        B=acc3_masks(N,"INNEREV");
     elseif t=="BORDER1" #2
-        B=acc3bigmatrix(N,"BORDER1");
+        B=acc3_masks(N,"BORDER1");
     elseif t=="BORDEREVR" #3
-        B=acc3bigmatrix(N,"BORDEREVR");
+        B=acc3_masks(N,"BORDEREVR");
     elseif t=="BORDEREVL" #4
-        B=acc3bigmatrix(N,"BORDEREVL");
+        B=acc3_masks(N,"BORDEREVL");
     elseif t=="BORDERFACEEV" #5
-        B=acc3bigmatrix(N,"BORDERFACEEV");
+        B=acc3_masks(N,"BORDERFACEEV");
     elseif t=="CORNER" #6
-        B=acc3bigmatrix(N,"CORNER");
+        B=acc3_masks(N,"CORNER");
     elseif t=="BORDER2" #7
-        B=acc3bigmatrix(N,"BORDER2");
+        B=acc3_masks(N,"BORDER2");
     else
         @warn "Type not recognized, using default one"
     end
